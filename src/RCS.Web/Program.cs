@@ -41,5 +41,5 @@ try {
 }
 catch (Exception ex)
 {
-    log.Fatal($"API can not start.\n{ex}");
+    log.Fatal($"Application can not start.\n{ex}");
 }
