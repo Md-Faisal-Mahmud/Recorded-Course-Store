@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace RCS.Data.Repositories
 {
-    public interface IRepository<T, in TKey>
+    public interface IRepositoryBase<T, in TKey>
     where T : class, IEntity<TKey>
     {
         Task AddAsync(T entity);

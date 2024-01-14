@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace RCS.Data.Repositories
 {
-    public class Repository<T, TKey> : IRepository<T, TKey> where T : class, IEntity<TKey>
+    public class Repository<T, TKey> : IRepositoryBase<T, TKey> where T : class, IEntity<TKey>
     {
         private readonly ISession _session;
 
