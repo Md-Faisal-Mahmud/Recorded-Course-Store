@@ -4,7 +4,7 @@ namespace RCS.Data.Entities
 {
     public class Course : IEntity<Guid>
     {
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
         public virtual string Title { get; set; }
 
         public virtual string? Description { get; set; }

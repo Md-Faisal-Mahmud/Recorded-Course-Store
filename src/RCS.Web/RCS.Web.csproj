@@ -20,7 +20,11 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RCS.Data\RCS.Data.csproj" />
+    <ProjectReference Include="..\RCS.Services\RCS.Services.csproj" />
   </ItemGroup>
 
 </Project>

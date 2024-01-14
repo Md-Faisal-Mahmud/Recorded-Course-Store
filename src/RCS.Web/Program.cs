@@ -1,8 +1,7 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using log4net;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
+using RCS.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +16,14 @@ builder.Logging.AddLog4Net();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-   
+    containerBuilder.RegisterModule(new WebModule());
 });
 
 
 var log = LogManager.GetLogger(typeof(Program));
 
-try {
+try
+{
     var app = builder.Build();
 
 
