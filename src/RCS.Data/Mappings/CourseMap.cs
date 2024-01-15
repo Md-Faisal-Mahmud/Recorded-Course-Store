@@ -39,13 +39,6 @@ namespace RCS.Data.Mappings
                 x.NotNullable(false);
                 x.Column("ThumbnailImage");
             });
-            Property(b => b.VideoURL, x =>
-            {
-                x.Length(256);
-                x.Type(NHibernateUtil.StringClob);
-                x.NotNullable(true);
-                x.Column("VideoUrl");
-            });
             Property(b => b.Description, x =>
             {
                 x.Length(5000);

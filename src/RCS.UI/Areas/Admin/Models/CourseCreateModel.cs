@@ -14,10 +14,6 @@ namespace RCS.UI.Areas.Admin.Models
         [Required(ErrorMessage = "Description is required")]
         public string? Description { get; set; }
 
-        [Required(ErrorMessage = "VideoURL is required")]
-        [Url(ErrorMessage = "Please enter a valid URL for VideoURL")]
-        public string VideoURL { get; set; }
-
         // Using Display attribute to customize the display name
         [Display(Name = "Thumbnail Image")]
         public string? ThumbnailImage { get; set; }
@@ -46,11 +42,9 @@ namespace RCS.UI.Areas.Admin.Models
             _courseService = scope.Resolve<ICourseService>();
         }
 
-       
-
         internal async Task CreateCourseAsync()
         {
-            await _courseService.AddCourseAsync(Title, Description, VideoURL, ThumbnailImage, Price, DifficultyLevel);
+            await _courseService.AddCourseAsync(Title, Description, ThumbnailImage, Price, DifficultyLevel);
         }
     }
 }

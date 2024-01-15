@@ -15,13 +15,12 @@ namespace RCS.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Course> AddCourseAsync(string title, string description, string videoUrl, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)
+        public async Task<Course> AddCourseAsync(string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)
         {
             Course course = new Course()
             {
                 Title = title,
                 Description = description,
-                VideoURL = videoUrl,
                 ThumbnailImage = thumbnailImage,
                 Price = price,
                 DifficultyLevel = difficultyLevel
@@ -33,5 +32,7 @@ namespace RCS.Services.Services
 
             return course;
         }
+
+
     }
 }
