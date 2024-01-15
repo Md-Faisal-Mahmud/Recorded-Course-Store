@@ -9,5 +9,7 @@ namespace RCS.UI.Areas.Admin.Controllers
         {
             return View();
         }
+
+
     }
 }

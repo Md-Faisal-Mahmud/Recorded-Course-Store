@@ -1,6 +1,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using log4net;
+using RCS.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Logging.AddLog4Net();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-   
+    containerBuilder.RegisterModule(new WebModule());
 });
 
 
