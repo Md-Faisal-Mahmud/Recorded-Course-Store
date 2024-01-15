@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using RCS.UI.Areas.Admin.Models;
 
 namespace RCS.UI
 {
@@ -12,6 +13,7 @@ namespace RCS.UI
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<CourseCreateModel>().AsSelf();
             base.Load(builder);
         }
     }
