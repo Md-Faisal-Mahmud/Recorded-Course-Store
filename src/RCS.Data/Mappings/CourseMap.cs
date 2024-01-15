@@ -32,12 +32,12 @@ namespace RCS.Data.Mappings
                 x.NotNullable(true);
                 x.Column("DifficultyLevel");
             });
-            Property(b => b.ThumbnailImage, x =>
+            Property(b => b.ThumbnailImageName, x =>
             {
                 x.Length(256);
                 x.Type(NHibernateUtil.StringClob);
                 x.NotNullable(false);
-                x.Column("ThumbnailImage");
+                x.Column("ThumbnailImageName");
             });
             Property(b => b.Description, x =>
             {

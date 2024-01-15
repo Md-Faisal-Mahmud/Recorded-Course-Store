@@ -1,14 +1,40 @@
-﻿namespace RCS.UI.Services
+﻿using System;
+using System.IO;
+
+namespace RCS.UI.Services
 {
     public class FileService : IFileService
     {
         private readonly IWebHostEnvironment _webHost;
         private readonly ILogger _logger;
+
+        public FileService()
+        {
+            
+        }
         public FileService(IWebHostEnvironment webHost, ILogger logger)
         {
             _webHost = webHost;
             _logger = logger;
         }
+
+        public string SaveFile(IFormFile file)
+        {
+            var name = RandomName();
+            var save_path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "wwwroot/CourseThumbnail"));
+            if (!Directory.Exists(save_path))
+            {
+                Directory.CreateDirectory(save_path);
+            }
+            using (var fileStream = new FileStream(Path.Combine(save_path, name), FileMode.Create))
+            {
+                 file.CopyTo(fileStream);
+            }
+            return name;
+        }
+
+        private string RandomName(string prefix = "") =>
+            $"img{prefix}_{DateTime.Now.ToString("dd_MM_yyyy_HH_mm_ss")}.png";
 
         public string SaveFile(IFormFile file, string path)
         {

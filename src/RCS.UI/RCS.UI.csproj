@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\select-image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
@@ -16,6 +20,19 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\contact.jpg" />
+    <None Include="wwwroot\images\corporate-user-icon-1.png" />
+    <None Include="wwwroot\images\corporate-user-icon.png" />
+    <None Include="wwwroot\images\HomeBannerImage.png" />
+    <None Include="wwwroot\images\ma.jpg" />
+    <None Include="wwwroot\images\profileImages\24fc78b6-8f28-468f-9476-e21e4cfaca6b.png" />
+    <None Include="wwwroot\images\profileImages\6d0bcabd-744c-4bdd-8e69-8f30088c984d.png" />
+    <None Include="wwwroot\images\profileImages\e3dbefee-4a51-4010-9bc8-0b0f7ff4492b.png" />
+    <None Include="wwwroot\images\select-image.png" />
+    <None Include="wwwroot\select-image.png" />
   </ItemGroup>
 
   <ItemGroup>

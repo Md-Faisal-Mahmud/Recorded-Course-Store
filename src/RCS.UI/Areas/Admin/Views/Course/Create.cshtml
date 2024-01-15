@@ -4,6 +4,43 @@
     ViewData["Title"] = "Create Course";
 }
 
+
+<link rel="stylesheet" href="~/AdminLTE/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="~/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="~/lib/croppieFiles/croppie.css" />
+<style>
+    .croppie-container {
+        width: 100%;
+        height: 80%;
+    }
+
+    .image-input-container {
+        position: relative;
+        background-color: #f0ffff;
+        /* Background color of the container */
+        border: 2px solid #ccc;
+        /* Border style */
+        border-radius: 10px;
+        /* Rounded corners */
+        overflow: hidden;
+        /* Hide overflow content */
+        cursor: pointer;
+        /* Change cursor on hover */
+    }
+        /* Style for the background image */
+        .image-input-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Scale the image to cover the container */
+        }
+
+    input:invalid {
+        border: 2px dashed red;
+    }
+</style>
+
+
 <div class="container-fluid">
     <div class="row">
         <!-- left column -->
@@ -16,7 +53,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form role="form" asp-antiforgery="true" asp-action="Create"
-                      asp-area="Admin" asp-controller="Course" method="post">
+                      asp-area="Admin" asp-controller="Course" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                         <partial name="_ResponsePartial" />
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -30,11 +67,15 @@
                             <input type="text" class="form-control" asp-for="Description" placeholder="Course Description">
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
-                        <div class="image-input-container form-group form-row" title="Click to Change">
-                            <img id="profile-image-show" name="profile-image" src="~/images/select-image.png" alt="Select Image">
-                            <input type="file" id="profile-image-input" class="form-control" asp-for="ThumbnailImage" value="" accept="image/*" hidden>
+                      @*   <div class="form-group">
+                            <label asp-for="Image">Upload Image:</label>
+                            <input asp-for="Image" type="file" class="form-control-file" id="imageUpload" name="Image">
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div> *@
+                        <div class="form-group">
+                            <label for="Image">Choose A file </label>
+                            <input type="file" class="form-control" name="Image" />
                         </div>
-                        <span asp-validation-for="ThumbnailImage" id="profile-image-validation" class="text-danger"></span>
                         <div class="form-group">
                             <label asp-for="Price"></label>
                             <input type="text" class="form-control" asp-for="Price" placeholder="Enter fees">

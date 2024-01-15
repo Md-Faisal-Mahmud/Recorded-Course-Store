@@ -21,7 +21,7 @@ namespace RCS.Services.Services
             {
                 Title = title,
                 Description = description,
-                ThumbnailImage = thumbnailImage,
+                ThumbnailImageName = thumbnailImage,
                 Price = price,
                 DifficultyLevel = difficultyLevel
             };
