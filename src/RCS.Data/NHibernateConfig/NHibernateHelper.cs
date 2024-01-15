@@ -9,8 +9,7 @@ namespace RCS.Data.NHibernateConfig
 {
     public static class NHibernateHelper
     {
-        public static IServiceCollection AddNHibernate(this IServiceCollection services,
-            string connectionString)
+        public static IServiceCollection AddNHibernate(this IServiceCollection services, string connectionString)
         {
             var mapper = new ModelMapper();
             mapper.AddMappings(typeof(NHibernateHelper).Assembly.ExportedTypes);
@@ -40,4 +39,5 @@ namespace RCS.Data.NHibernateConfig
             return services;
         }
     }
+
 }

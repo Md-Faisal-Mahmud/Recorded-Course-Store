@@ -46,6 +46,8 @@ namespace RCS.UI.Areas.Admin.Models
             _courseService = scope.Resolve<ICourseService>();
         }
 
+       
+
         internal async Task CreateCourseAsync()
         {
             await _courseService.AddCourseAsync(Title, Description, VideoURL, ThumbnailImage, Price, DifficultyLevel);

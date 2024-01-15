@@ -2,8 +2,15 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using log4net;
 using RCS.UI;
+using RCS.Services;
+using RCS.Data.DataAccessServiceConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("RCSConnectionString");
+
+builder.Services.ConfigureDataAccessServices(connectionString)
+    .RegisterServiceLayers();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

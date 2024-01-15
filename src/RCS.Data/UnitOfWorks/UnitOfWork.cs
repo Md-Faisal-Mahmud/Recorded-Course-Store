@@ -37,7 +37,7 @@ namespace RCS.Data.UnitOfWorks
             _session.Dispose();
         }
 
-        public ICourseRepository Courses { get; private set; }
+        public ICourseRepository Courses => _courseRepository;
 
     }
 }
