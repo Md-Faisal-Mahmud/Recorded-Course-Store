@@ -18,6 +18,11 @@ namespace RCS.Services.Services
 
         public async Task<Course> AddCourseAsync(string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)
         {
+            var courseExist = await _unitOfWork.Courses.GetCountAsync(x => x.Title == title);
+            if (courseExist != 0)
+            {
+                throw new DuplicateNameException("Course name is duplicate");
+            }
             Course course = new Course()
             {
                 Title = title,
