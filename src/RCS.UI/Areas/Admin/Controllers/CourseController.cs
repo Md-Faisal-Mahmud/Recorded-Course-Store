@@ -71,5 +71,55 @@ namespace RCS.UI.Areas.Admin.Controllers
 
             return View(nameof(Index));
         }
+
+
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var model = _scope.Resolve<CourseUpdateModel>();
+            await model.Load(id);
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(CourseUpdateModel model)
+        {
+            model.ResolveDependency(_scope);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                   await model.UpdateCourseAsync();
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Successfully added a new course.",
+                        Type = ResponseTypes.Success
+                    });
+                    return RedirectToAction("Index");
+                }
+                catch (DuplicateNameException ex)
+                {
+                    _logger.LogError(ex, ex.Message);
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = ex.Message,
+                        Type = ResponseTypes.Danger
+                    });
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Server Error");
+
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "There was a problem in creating course.",
+                        Type = ResponseTypes.Danger
+                    });
+                }
+            }
+
+            return View(nameof(Index));
+        }
     }
 }

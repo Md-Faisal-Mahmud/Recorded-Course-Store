@@ -15,6 +15,7 @@ namespace RCS.UI
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CourseCreateModel>().AsSelf();
+            builder.RegisterType<CourseUpdateModel>().AsSelf();
             builder.RegisterType<FileService>().As<IFileService>()
                .InstancePerLifetimeScope();
             base.Load(builder);

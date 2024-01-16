@@ -48,7 +48,7 @@ namespace RCS.UI.Areas.Admin.Models
             _mapper = scope.Resolve<IMapper>();
         }
 
-        internal async void Load(Guid id)
+        internal async Task Load(Guid id)
         {
             Course course = await _courseService.GetCourseAsync(id);
             if (course != null)
@@ -57,7 +57,7 @@ namespace RCS.UI.Areas.Admin.Models
             }
         }
 
-        internal async void UpdateCourseAsync()
+        internal async Task UpdateCourseAsync()
         {
             ImageName = _fileService.SaveFile(Image);
             await _courseService.UpdateCourseAsync(Id,Title,Description,ImageName,Price,DifficultyLevel);
