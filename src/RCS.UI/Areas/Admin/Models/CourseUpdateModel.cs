@@ -1,24 +1,25 @@
 ﻿using Autofac;
+using AutoMapper;
+using NHibernate.Mapping.ByCode.Impl;
+using RCS.Data.Entities;
 using RCS.Data.Enums;
 using RCS.Services.Services;
 using RCS.UI.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace RCS.UI.Areas.Admin.Models
 {
-    public class CourseCreateModel
+    public class CourseUpdateModel
     {
+        [Required(ErrorMessage = "Id is required")]
+        public Guid Id { get; set; }
+
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
         public string? Description { get; set; }
-
-        // Using Display attribute to customize the display name
-        //[Display(Name = "Thumbnail Image")]
         public IFormFile Image { get; set; }
         public string? ImageName { get; set; }
-
-        [Required(ErrorMessage = "Price is required")]
-        [Range(0, 999999.99, ErrorMessage = "Price should be between 0 and 999999.99")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "DifficultyLevel is required")]
@@ -26,28 +27,41 @@ namespace RCS.UI.Areas.Admin.Models
 
         private ICourseService _courseService;
         private IFileService _fileService;
+        private IMapper _mapper;
 
-        public CourseCreateModel()
+        public CourseUpdateModel()
         {
-
+            
         }
 
-        public CourseCreateModel(ICourseService courseService,IFileService fileService)
+        public CourseUpdateModel(ICourseService courseService, IFileService fileService,IMapper mapper)
         {
             _courseService = courseService;
             _fileService = fileService;
+            _mapper = mapper;
         }
 
         internal void ResolveDependency(ILifetimeScope scope)
         {
             _courseService = scope.Resolve<ICourseService>();
             _fileService = scope.Resolve<IFileService>();
+            _mapper = scope.Resolve<IMapper>();
         }
 
-        internal async Task CreateCourseAsync()
+        internal async void Load(Guid id)
         {
-            ImageName =  _fileService.SaveFile(Image);
-            await _courseService.AddCourseAsync(Title, Description, ImageName, Price, DifficultyLevel);
+            Course course = await _courseService.GetCourseAsync(id);
+            if (course != null)
+            {
+                _mapper.Map(course, this);
+            }
         }
+
+        internal async void UpdateCourseAsync()
+        {
+            ImageName = _fileService.SaveFile(Image);
+            await _courseService.UpdateCourseAsync(Id,Title,Description,ImageName,Price,DifficultyLevel);
+        }
+
     }
 }

@@ -1,15 +1,13 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using log4net;
-using RCS.UI;
-using RCS.Services;
 using RCS.Data.DataAccessServiceConfigurations;
-using Autofac.Core;
-using Microsoft.Extensions.Hosting.Internal;
+using RCS.Services;
+using RCS.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 var connectionString = builder.Configuration.GetConnectionString("RCSConnectionString");

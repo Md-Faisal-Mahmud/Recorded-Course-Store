@@ -41,7 +41,12 @@ namespace RCS.Data.Repositories
 
         public async Task<int> GetCountAsync(Expression<Func<T, bool>>? predicate = null!)
         {
-            return await _session.Query<T>().CountAsync(predicate ?? (x => true));
+            var query = _session.QueryOver<T>();
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            return await query.RowCountAsync();
         }
 
         public async Task<T?> GetSingleAsync(TKey id)
