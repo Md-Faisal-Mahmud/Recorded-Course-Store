@@ -8,6 +8,8 @@ namespace RCS.Services.Services
         Task<Course> AddCourseAsync(string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel);
         Task<Course> GetCourseAsync(Guid id);
 
+        Task<IEnumerable<Course>> GetAllCoursesAsync();
+
         Task UpdateCourseAsync(Guid id, string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel);
 
         Task DeleteCourseAsync(Guid id);

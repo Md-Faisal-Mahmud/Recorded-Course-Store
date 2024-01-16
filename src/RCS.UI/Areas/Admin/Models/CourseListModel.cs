@@ -22,10 +22,11 @@ namespace RCS.UI.Areas.Admin.Models
             await _courseService.DeleteCourseAsync(id);
         }
 
-        internal async Task<IList<Course>> GetCourseList()
+
+        internal async Task<object?> GetAllCourses()
         {
             var courses = await _courseService.GetAllCoursesAsync();
-            return courses.ToList();
+            return courses;
         }
 
 

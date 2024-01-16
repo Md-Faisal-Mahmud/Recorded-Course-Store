@@ -70,8 +70,11 @@ namespace RCS.Data.Repositories
         }
 
         public async Task<(IList<T> data, int total, int totalDisplay)> GetByPagingAsync(
-       Expression<Func<T, bool>> filter = null!, string orderBy = null!, int pageIndex = 1,
-       int pageSize = 10, Expression<Func<T, object>>? objectSelector = null!,
+       Expression<Func<T, bool>> filter = null!,
+       string orderBy = null!,
+       int pageIndex = 1,
+       int pageSize = 10,
+       Expression<Func<T, object>>? objectSelector = null!,
        Expression<Func<T, bool>> selectorFilter = null!)
         {
             var query = _session.Query<T>().Where(filter ?? (x => true));
@@ -103,6 +106,8 @@ namespace RCS.Data.Repositories
 
             return (data, total, data.Count);
         }
+
+
 
 
     }

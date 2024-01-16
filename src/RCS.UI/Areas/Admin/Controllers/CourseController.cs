@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using RCS.Data.Entities;
 using RCS.UI.Areas.Admin.Models;
 using RCS.UI.Models;
 using RCS.UI.Utilities;
@@ -22,17 +24,7 @@ namespace RCS.UI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var model = _scope.Resolve<CourseListModel>();
-            var courses = await model.GetCourseList();
-            var result = courses.Select(course => new
-            {
-                Id = course.Id,
-                Title = course.Title,
-                Price = course.Price
-                // Add other properties if needed
-            });
-
             return View(model);
-
         }
 
         public async Task<IActionResult> Create()
@@ -158,6 +150,16 @@ namespace RCS.UI.Areas.Admin.Controllers
             var model = _scope.Resolve<CourseListModel>();
             return Json(await model.GetCoursePagedData(dataTableModel));
         }
+
+
+        public async Task<IActionResult> GetCoursesList()
+        {
+            var model = _scope.Resolve<CourseListModel>();
+            var courses = await model.GetAllCourses();
+
+            return Json(new { data = courses });
+        }
+
 
     }
 }
