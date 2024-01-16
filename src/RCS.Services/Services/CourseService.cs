@@ -34,6 +34,18 @@ namespace RCS.Services.Services
             return course;
         }
 
+        public async Task DeleteCourseAsync(Guid id)
+        {
+            var course = await _unitOfWork.Courses.GetSingleAsync(id);
+
+            if (course == null)
+                throw new Exception("Course not found");
+
+            await _unitOfWork.BeginTransaction();
+            await _unitOfWork.Courses.DeleteAsync(course);
+            await _unitOfWork.Commit();
+        }
+
         public async Task<Course> GetCourseAsync(Guid id)
         {
             var course = await _unitOfWork.Courses.GetSingleAsync(x => x.Id == id);

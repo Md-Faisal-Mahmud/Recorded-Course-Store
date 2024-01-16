@@ -121,5 +121,24 @@ namespace RCS.UI.Areas.Admin.Controllers
 
             return View(nameof(Index));
         }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var model = _scope.Resolve<CourseListModel>();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await model.DeleteCourse(id);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Server Error");
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

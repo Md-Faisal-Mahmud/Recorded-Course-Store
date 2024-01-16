@@ -16,6 +16,7 @@ namespace RCS.UI
         {
             builder.RegisterType<CourseCreateModel>().AsSelf();
             builder.RegisterType<CourseUpdateModel>().AsSelf();
+            builder.RegisterType<CourseListModel>().AsSelf();
             builder.RegisterType<FileService>().As<IFileService>()
                .InstancePerLifetimeScope();
             base.Load(builder);

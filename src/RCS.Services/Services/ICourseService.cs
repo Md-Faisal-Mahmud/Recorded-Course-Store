@@ -9,5 +9,7 @@ namespace RCS.Services.Services
         Task<Course> GetCourseAsync(Guid id);
 
         Task UpdateCourseAsync(Guid id, string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel);
+
+        Task DeleteCourseAsync(Guid id);
     }
 }
