@@ -1,4 +1,5 @@
-﻿using RCS.Data.Entities;
+﻿using Mapster;
+using RCS.Data.Entities;
 using RCS.Data.Enums;
 using RCS.Data.UnitOfWorks;
 using System.Data;
@@ -14,6 +15,23 @@ namespace RCS.Services.Services
         public CourseService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<(int total, int totalDisplay, IList<Course> records)>
+        GetCoursesByPagingAsync(int pageIndex, int pageSize, string searchText, string orderby)
+        {
+            var results = await _unitOfWork
+                .Courses
+                .GetByPagingAsync(x => x.Title.Contains(searchText), orderby, pageIndex, pageSize);
+
+            var courses = new List<Course>();
+
+            foreach (var course in results.data)
+            {
+                courses.Add(course.Adapt<Course>());
+            }
+
+            return (results.total, results.totalDisplay, courses);
         }
 
         public async Task<Course> AddCourseAsync(string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)

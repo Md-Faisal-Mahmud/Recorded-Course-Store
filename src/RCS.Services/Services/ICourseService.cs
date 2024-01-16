@@ -11,5 +11,8 @@ namespace RCS.Services.Services
         Task UpdateCourseAsync(Guid id, string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel);
 
         Task DeleteCourseAsync(Guid id);
+
+        Task<(int total, int totalDisplay, IList<Course> records)> GetCoursesByPagingAsync(int pageIndex,
+        int pageSize, string searchText, string orderby);
     }
 }

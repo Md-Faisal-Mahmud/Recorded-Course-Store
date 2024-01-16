@@ -140,5 +140,13 @@ namespace RCS.UI.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<JsonResult> GetCourses()
+        {
+            var dataTableModel = new DataTablesAjaxRequestModel(Request);
+            var model = _scope.Resolve<CourseListModel>();
+            return Json(await model.GetCoursePagedData(dataTableModel));
+        }
+
     }
 }
