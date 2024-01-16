@@ -83,16 +83,16 @@ namespace RCS.Data.Repositories
 
             var total = await query.CountAsync();
 
-            if (!string.IsNullOrEmpty(orderBy))
-            {
-                // Convert string property name to a lambda expression
-                var orderExpression = Expression.Lambda<Func<T, object>>(
-                    Expression.Convert(Expression.PropertyOrField(Expression.Parameter(typeof(T)), orderBy), typeof(object)),
-                    Expression.Parameter(typeof(T))
-                );
+            //if (!string.IsNullOrEmpty(orderBy))
+            //{
+            //    // Convert string property name to a lambda expression
+            //    var orderExpression = Expression.Lambda<Func<T, object>>(
+            //        Expression.Convert(Expression.PropertyOrField(Expression.Parameter(typeof(T)), orderBy), typeof(object)),
+            //        Expression.Parameter(typeof(T))
+            //    );
 
-                query = query.OrderBy(orderExpression);
-            }
+            //    query = query.OrderBy(orderExpression);
+            //}
 
             if (objectSelector != null)
             {

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using NHibernate.Id.Enhanced;
 using RCS.Data.Entities;
 using RCS.Data.Enums;
 using RCS.Data.UnitOfWorks;
@@ -15,6 +16,10 @@ namespace RCS.Services.Services
         public CourseService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<Course>> GetAllCoursesAsync() { 
+        return await _unitOfWork.Courses.GetAllAsync();
         }
 
         public async Task<(int total, int totalDisplay, IList<Course> records)>

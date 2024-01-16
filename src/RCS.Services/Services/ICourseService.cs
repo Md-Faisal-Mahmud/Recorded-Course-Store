@@ -12,6 +12,8 @@ namespace RCS.Services.Services
 
         Task DeleteCourseAsync(Guid id);
 
+        Task<IEnumerable<Course>> GetAllCoursesAsync();
+
         Task<(int total, int totalDisplay, IList<Course> records)> GetCoursesByPagingAsync(int pageIndex,
         int pageSize, string searchText, string orderby);
     }

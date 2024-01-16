@@ -19,9 +19,20 @@ namespace RCS.UI.Areas.Admin.Controllers
             _scope = scope;
             _logger = logger;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = _scope.Resolve<CourseListModel>();
+            var courses = await model.GetCourseList();
+            var result = courses.Select(course => new
+            {
+                Id = course.Id,
+                Title = course.Title,
+                Price = course.Price
+                // Add other properties if needed
+            });
+
+            return View(model);
+
         }
 
         public async Task<IActionResult> Create()
@@ -143,7 +154,7 @@ namespace RCS.UI.Areas.Admin.Controllers
 
         public async Task<JsonResult> GetCourses()
         {
-            var dataTableModel = new DataTablesAjaxRequestModel(Request);
+            var dataTableModel = new DataTablesAjaxRequestUtility(Request);
             var model = _scope.Resolve<CourseListModel>();
             return Json(await model.GetCoursePagedData(dataTableModel));
         }

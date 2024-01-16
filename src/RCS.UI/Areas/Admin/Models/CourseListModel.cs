@@ -1,4 +1,6 @@
-﻿using RCS.Services.Services;
+﻿using RCS.Data.Entities;
+using RCS.Services.Services;
+using RCS.UI.Utilities;
 
 namespace RCS.UI.Areas.Admin.Models
 {
@@ -20,8 +22,14 @@ namespace RCS.UI.Areas.Admin.Models
             await _courseService.DeleteCourseAsync(id);
         }
 
+        internal async Task<IList<Course>> GetCourseList()
+        {
+            var courses = await _courseService.GetAllCoursesAsync();
+            return courses.ToList();
+        }
 
-        internal async Task<object?> GetCoursePagedData(DataTablesAjaxRequestModel dataTablesModel)
+
+        internal async Task<object?> GetCoursePagedData(DataTablesAjaxRequestUtility dataTablesModel)
         {
             var data = await _courseService.GetCoursesByPagingAsync(
                 dataTablesModel.PageIndex,
