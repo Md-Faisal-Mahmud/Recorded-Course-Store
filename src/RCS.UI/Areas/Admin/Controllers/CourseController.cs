@@ -69,7 +69,7 @@ namespace RCS.UI.Areas.Admin.Controllers
                 }
             }
 
-            return View(nameof(Index));
+            return View(model);
         }
 
 
@@ -119,7 +119,7 @@ namespace RCS.UI.Areas.Admin.Controllers
                 }
             }
 
-            return View(nameof(Index));
+            return View(model);
         }
 
         public async Task<IActionResult> Delete(Guid id)
