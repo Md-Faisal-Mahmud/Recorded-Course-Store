@@ -148,5 +148,12 @@ namespace RCS.UI.Areas.Admin.Controllers
             return Json(await model.GetCoursePagedData(dataTableModel));
         }
 
+        public async Task<IActionResult> GetCoursesList()
+        {
+            var model = _scope.Resolve<CourseListModel>();
+
+            return Json(await model.GetAllCourses());
+        }
+
     }
 }

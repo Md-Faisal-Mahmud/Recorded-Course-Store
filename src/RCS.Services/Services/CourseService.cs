@@ -18,11 +18,11 @@ namespace RCS.Services.Services
         }
 
         public async Task<(int total, int totalDisplay, IList<Course> records)>
-        GetCoursesByPagingAsync(int pageIndex, int pageSize, string searchText, string orderby)
+         GetCoursesByPagingAsync(int pageIndex, int pageSize, string searchText, string orderby)
         {
             var results = await _unitOfWork
                 .Courses
-                .GetByPagingAsync(x => x.Title.Contains(searchText), orderby, pageIndex, pageSize);
+                .GetByPagingAsync(x => x.Title.Contains(searchText), orderby, pageIndex, pageSize, x => true);
 
             var courses = new List<Course>();
 
@@ -33,6 +33,13 @@ namespace RCS.Services.Services
 
             return (results.total, results.totalDisplay, courses);
         }
+
+        public async Task<IEnumerable<Course>> GetAllCoursesAsync()
+        { 
+            var courses = await _unitOfWork.Courses.GetAllAsync();
+            return courses;
+        }
+
 
         public async Task<Course> AddCourseAsync(string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)
         {
@@ -75,7 +82,7 @@ namespace RCS.Services.Services
             return course;
         }
 
-        public async Task UpdateCourseAsync(Guid id,string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel) 
+        public async Task UpdateCourseAsync(Guid id, string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)
         {
             if (await _unitOfWork.Courses.IsDuplicateNameAsync(title, id))
             {

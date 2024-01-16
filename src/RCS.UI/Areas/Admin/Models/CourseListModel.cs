@@ -20,6 +20,11 @@ namespace RCS.UI.Areas.Admin.Models
             await _courseService.DeleteCourseAsync(id);
         }
 
+        internal async Task<object?> GetAllCourses()
+        {
+            var courses = await _courseService.GetAllCoursesAsync();
+            return courses;
+        }
 
         internal async Task<object?> GetCoursePagedData(DataTablesAjaxRequestModel dataTablesModel)
         {

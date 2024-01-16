@@ -70,8 +70,11 @@ namespace RCS.Data.Repositories
         }
 
         public async Task<(IList<T> data, int total, int totalDisplay)> GetByPagingAsync(
-       Expression<Func<T, bool>> filter = null!, string orderBy = null!, int pageIndex = 1,
-       int pageSize = 10, Expression<Func<T, object>>? objectSelector = null!,
+       Expression<Func<T, bool>> filter = null!,
+       string orderBy = null!,
+       int pageIndex = 1,
+       int pageSize = 10,
+       Expression<Func<T, object>>? objectSelector = null!,
        Expression<Func<T, bool>> selectorFilter = null!)
         {
             var query = _session.Query<T>().Where(filter ?? (x => true));
@@ -85,13 +88,19 @@ namespace RCS.Data.Repositories
 
             if (!string.IsNullOrEmpty(orderBy))
             {
-                // Convert string property name to a lambda expression
-                var orderExpression = Expression.Lambda<Func<T, object>>(
-                    Expression.Convert(Expression.PropertyOrField(Expression.Parameter(typeof(T)), orderBy), typeof(object)),
-                    Expression.Parameter(typeof(T))
-                );
+                // Split the orderBy parameter to separate property name and sorting direction
+                var orderByParts = orderBy.Split(' ');
+                var propertyName = orderByParts[0];
 
-                query = query.OrderBy(orderExpression);
+                // Convert string property name to a lambda expression
+                var parameter = Expression.Parameter(typeof(T));
+                var property = Expression.PropertyOrField(parameter, propertyName);
+                var orderExpression = Expression.Lambda<Func<T, object>>(Expression.Convert(property, typeof(object)), parameter);
+
+                // OrderBy using expression
+                query = orderByParts.Length > 1 && orderByParts[1].ToLower() == "desc"
+                    ? query.OrderByDescending(orderExpression)
+                    : query.OrderBy(orderExpression);
             }
 
             if (objectSelector != null)
@@ -103,6 +112,8 @@ namespace RCS.Data.Repositories
 
             return (data, total, data.Count);
         }
+
+
 
 
     }
